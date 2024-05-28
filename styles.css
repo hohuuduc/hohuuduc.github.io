@@ -1,0 +1,46 @@
+* {
+    outline: none;
+    margin: 0;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: darkblue;
+    text-align: center;
+    color: white;
+    box-sizing: border-box;
+    padding: 1rem;
+}
+
+h1 {
+    position: relative;
+    z-index: 10
+}
+
+a {
+    color: #FFE37B;
+    text-decoration: none;
+}
+
+.wave-top {
+    position: absolute;
+    top: calc(50vh - 200px);
+    left: 0;
+    width: 100%;
+}
+
+.panel {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: calc(50vh - 200px);
+    background-color: rgb(0, 153, 255);
+}
