@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Client build artifacts
+public/*.js
+public/*.js.map
+public/*.d.ts
+
+# Logs
+*.log
+server.log
+
+# System files
+.DS_Store
+
+# Environment variables
+.env

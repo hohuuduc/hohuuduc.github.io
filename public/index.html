@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebRTC Chat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>WebRTC Chat</h1>
+    <div class="videos">
+        <video id="localVideo" autoplay playsinline muted></video>
+        <video id="remoteVideo" autoplay playsinline></video>
+    </div>
+    <div class="controls">
+        <button id="startButton">Start Camera</button>
+        <button id="callButton" disabled>Call</button>
+        <button id="hangupButton" disabled>Hang Up</button>
+    </div>
+    <script src="client.js"></script>
+</body>
+</html>
