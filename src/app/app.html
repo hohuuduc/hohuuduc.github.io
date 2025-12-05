@@ -1,0 +1,17 @@
+<div class="crt-overlay"></div>
+<div id="terminal" #terminal>
+  <div id="output" #output></div>
+  <div class="input-line" id="input-line" #inputLine [style.display]="inputLineDisplay">
+    <span class="prompt-user">visitor</span><span class="prompt-at">@</span><span
+      class="prompt-host">hohuuduc</span><span class="prompt-path">:~$</span>
+    <input type="text" id="command-input" #commandInput autocomplete="off" spellcheck="false" autofocus
+      (keydown)="onKeyDown($event)" (input)="onInput()" (click)="onInput()" (keyup)="onInput()">
+    <span class="cursor" #cursor>█</span>
+  </div>
+</div>
+
+<div class="social-bar">
+  <a href="https://github.com/hohuuduc" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+  <a href="https://linkedin.com/in/hohuuduc" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+  <a href="https://facebook.com/hohuuduc" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+</div>

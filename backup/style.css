@@ -1,0 +1,268 @@
+/* Windows Terminal - Campbell Theme */
+:root {
+    /* Campbell Color Scheme */
+    --bg-color: #0C0C0C;
+    --text-color: #CCCCCC;
+    --bright-white: #F2F2F2;
+    --black: #0C0C0C;
+    --blue: #0037DA;
+    --cyan: #3A96DD;
+    --green: #13A10E;
+    --purple: #881798;
+    --red: #C50F1F;
+    --white: #CCCCCC;
+    --yellow: #C19C00;
+    --bright-blue: #3B78FF;
+    --bright-cyan: #61D6D6;
+    --bright-green: #16C60C;
+    --bright-purple: #B4009E;
+    --bright-red: #E74856;
+    --bright-yellow: #F9F1A5;
+
+    /* Acrylic effect */
+    --acrylic-bg: rgba(12, 12, 12, 0.7);
+    --acrylic-border: rgba(204, 204, 204, 0.1);
+
+    /* Font */
+    --font-stack: 'JetBrains Mono', 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    /* Windows Terminal gradient background */
+    background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 50%, #0a0a14 100%);
+    background-attachment: fixed;
+    color: var(--text-color);
+    font-family: var(--font-stack);
+    font-size: 16px;
+    line-height: 1.5;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Remove CRT effect - Windows Terminal doesn't have this */
+.crt-overlay {
+    display: none;
+}
+
+#terminal {
+    padding: 20px;
+    height: 100%;
+    overflow-y: auto;
+    /* Acrylic blur effect */
+    background: var(--acrylic-bg);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid var(--acrylic-border);
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    padding-bottom: 100px;
+    max-width: 1200px;
+    max-height: 90vh;
+}
+
+/* Windows 11 style scrollbar */
+#terminal::-webkit-scrollbar {
+    width: 12px;
+}
+
+#terminal::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#terminal::-webkit-scrollbar-thumb {
+    background: rgba(204, 204, 204, 0.3);
+    border-radius: 6px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+}
+
+#terminal::-webkit-scrollbar-thumb:hover {
+    background: rgba(204, 204, 204, 0.5);
+    border: 3px solid transparent;
+    background-clip: content-box;
+}
+
+#output {
+    white-space: pre-wrap;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.input-line {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+/* Prompt Styling - Campbell colors */
+.prompt-user {
+    color: var(--bright-green);
+    font-weight: 600;
+}
+
+.prompt-at {
+    color: var(--white);
+}
+
+.prompt-host {
+    color: var(--bright-cyan);
+    font-weight: 600;
+}
+
+.prompt-path {
+    color: var(--bright-yellow);
+    margin-right: 10px;
+}
+
+#command-input {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-family: var(--font-stack);
+    font-size: 16px;
+    outline: none;
+    flex-grow: 1;
+    caret-color: transparent;
+    position: relative;
+}
+
+.cursor {
+    position: absolute;
+    animation: blink 1s step-end infinite;
+    pointer-events: none;
+    color: var(--text-color);
+    background: var(--bg-color);
+    width: 10px;
+    height: 20px;
+    left: 0;
+    z-index: 100;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+.command-output {
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.ascii-art {
+    color: var(--bright-cyan);
+    font-weight: normal;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    white-space: pre;
+}
+
+.neofetch-block {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.neofetch-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.neofetch-row {
+    display: flex;
+}
+
+.neofetch-key {
+    color: var(--bright-blue);
+    min-width: 120px;
+    font-weight: 600;
+}
+
+.neofetch-val {
+    color: var(--text-color);
+}
+
+/* Social Bar - Windows 11 style */
+.social-bar {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 15px;
+    z-index: 20;
+    background: var(--acrylic-bg);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    padding: 12px 20px;
+    border: 1px solid var(--acrylic-border);
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.social-bar a {
+    color: var(--text-color);
+    font-size: 1.5rem;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.social-bar a:hover {
+    color: var(--bright-cyan);
+    transform: scale(1.1);
+}
+
+.social-bar a:active {
+    transform: scale(0.95);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+    body {
+        font-size: 14px;
+    }
+
+    #command-input {
+        font-size: 14px;
+    }
+
+    .terminal {
+        padding: 10px;
+        padding-bottom: 80px;
+        margin: 5px;
+    }
+
+    .ascii-art {
+        font-size: 0.7rem;
+    }
+
+    .social-bar {
+        bottom: 10px;
+        right: 10px;
+        padding: 8px 12px;
+    }
+
+    .social-bar a {
+        font-size: 1.2rem;
+    }
+}
