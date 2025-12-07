@@ -176,67 +176,6 @@ body {
     white-space: pre;
 }
 
-.neofetch-block {
-    margin-bottom: 20px;
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-}
-
-.neofetch-info {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.neofetch-row {
-    display: flex;
-}
-
-.neofetch-key {
-    color: var(--bright-blue);
-    min-width: 120px;
-    font-weight: 600;
-}
-
-.neofetch-val {
-    color: var(--text-color);
-}
-
-/* Social Bar - Windows 11 style */
-.social-bar {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: flex;
-    gap: 15px;
-    z-index: 20;
-    background: var(--acrylic-bg);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    padding: 12px 20px;
-    border: 1px solid var(--acrylic-border);
-    border-radius: 8px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-}
-
-.social-bar a {
-    color: var(--text-color);
-    font-size: 1.5rem;
-    transition: all 0.2s ease;
-    text-decoration: none;
-}
-
-.social-bar a:hover {
-    color: var(--bright-cyan);
-    transform: scale(1.1);
-}
-
-.social-bar a:active {
-    transform: scale(0.95);
-}
-
-/* Mobile Responsiveness */
 @media (max-width: 600px) {
     body {
         font-size: 14px;
@@ -254,15 +193,5 @@ body {
 
     .ascii-art {
         font-size: 0.7rem;
-    }
-
-    .social-bar {
-        bottom: 10px;
-        right: 10px;
-        padding: 8px 12px;
-    }
-
-    .social-bar a {
-        font-size: 1.2rem;
     }
 }

@@ -1,0 +1,88 @@
+#terminal {
+    padding: 20px;
+    height: 100%;
+    overflow-y: auto;
+    background: var(--acrylic-bg);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid var(--acrylic-border);
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    padding-bottom: 100px;
+    max-width: 1200px;
+    max-height: 90vh;
+}
+
+#terminal::-webkit-scrollbar {
+    width: 12px;
+}
+
+#terminal::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#terminal::-webkit-scrollbar-thumb {
+    background: rgba(204, 204, 204, 0.3);
+    border-radius: 6px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+}
+
+#terminal::-webkit-scrollbar-thumb:hover {
+    background: rgba(204, 204, 204, 0.5);
+    border: 3px solid transparent;
+    background-clip: content-box;
+}
+
+#command-input {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-family: var(--font-stack);
+    font-size: 16px;
+    outline: none;
+    flex-grow: 1;
+    caret-color: transparent;
+    position: relative;
+}
+
+.cursor {
+    position: absolute;
+    animation: blink 1s step-end infinite;
+    pointer-events: none;
+    color: var(--text-color);
+    background: var(--bg-color);
+    width: 10px;
+    height: 20px;
+    left: 0;
+    z-index: 100;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+.hidden {
+    display: none !important;
+}
+
+@media (max-width: 600px) {
+    #command-input {
+        font-size: 14px;
+    }
+
+    .terminal {
+        padding: 10px;
+        padding-bottom: 80px;
+        margin: 5px;
+    }
+}

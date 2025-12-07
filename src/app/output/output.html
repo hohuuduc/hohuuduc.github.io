@@ -1,0 +1,9 @@
+<div id="output">
+    @for (line of lines; track $index) {
+    @if (line.isHtml) {
+    <div [innerHTML]="line.content"></div>
+    } @else {
+    <div [class]="line.className" [innerHTML]="line.content"></div>
+    }
+    }
+</div>

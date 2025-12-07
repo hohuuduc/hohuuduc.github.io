@@ -1,36 +1,38 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, Renderer2, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { OutputComponent } from './output/output';
+import { SocialBarComponent } from './social-bar/social-bar';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, OutputComponent, SocialBarComponent],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
 export class AppComponent implements AfterViewInit {
-  @ViewChild('output') output!: ElementRef;
-  @ViewChild('inputLine') inputLine!: ElementRef;
+  @ViewChild(OutputComponent) output!: OutputComponent;
   @ViewChild('commandInput') commandInput!: ElementRef;
   @ViewChild('terminal') terminal!: ElementRef;
   @ViewChild('cursor') cursor!: ElementRef;
 
   inputLineDisplay = 'none';
 
+  // Command history
+  commandHistory: string[] = [];
+  historyIndex = -1;
+
   // Portfolio Data
-  bio = `
-NAME: Ho Huu Duc
+  bio = `NAME: Ho Huu Duc
 ROLE: Software Engineer
 EXP:  2 Years
 LOC:  Vietnam
 
 SUMMARY:
 Software Engineer specializing in .NET and NodeJS.
-Skilled in analyzing requirements, implementing user functionalities, and optimizing systems.
-    `;
+Skilled in analyzing requirements, implementing user functionalities, and optimizing systems.`;
 
-  projects = `
-[DIR] PROJECTS
+  projects = `[DIR] PROJECTS
 --------------
 1. PROCES.S (Fujinet System)
    - ERP system for construction industry (.NET, Winform, SQL Server)
@@ -42,27 +44,22 @@ Skilled in analyzing requirements, implementing user functionalities, and optimi
    - CLI for quick Parcel deployment
 
 4. Singleton DLL (Personal)
-   - Object management library
-    `;
+   - Object management library`;
 
-  skills = `
-[SYS] SKILLS LOADED
+  skills = `[SYS] SKILLS LOADED
 -------------------
 LANGUAGES:  C#, JavaScript, TypeScript, SQL
 FRAMEWORKS: .NET, NodeJS, ASP.NET MVC
 DATABASES:  SQL Server, Oracle
-CONCEPTS:   OOP, SOLID, Design Patterns
-    `;
+CONCEPTS:   OOP, SOLID, Design Patterns`;
 
-  help = `
-AVAILABLE COMMANDS:
+  help = `AVAILABLE COMMANDS:
 -------------------
 about     - Display user information
 skills    - List technical skills
 projects  - List projects
 clear     - Clear terminal screen
-help      - Show this help message
-    `;
+help      - Show this help message`;
 
   asciiArt = String.raw`
   _   _       _   _             ____             
@@ -73,7 +70,7 @@ help      - Show this help message
  |_| |_|\___/|_| |_|\__,_|\__,_|____/ \__,_|\___|
 `;
 
-  constructor(private renderer: Renderer2, private cdr: ChangeDetectorRef) { }
+  constructor(private cdr: ChangeDetectorRef) { }
 
   ngAfterViewInit() {
     this.runBootSequence();
@@ -86,41 +83,12 @@ help      - Show this help message
     });
   }
 
-  // Typing Effect
-  async typeText(text: string, element: HTMLElement, speed = 30) {
-    return new Promise<void>(resolve => {
-      let i = 0;
-      const type = () => {
-        if (i < text.length) {
-          if (text.charAt(i) === '\n') {
-            element.innerHTML += '<br>';
-            this.terminal.nativeElement.scrollTo(0, document.body.scrollHeight);
-          } else if (text.charAt(i) === ' ') {
-            element.innerHTML += '&nbsp;';
-          } else {
-            element.innerText += text.charAt(i);
-          }
-          i++;
-          setTimeout(type, speed);
-        } else {
-          resolve();
-        }
-      };
-      type();
-    });
-  }
-
   async printLine(text: string, speed = 30, className = 'command-output') {
-    const line = this.renderer.createElement('div');
-    line.className = className;
-    this.renderer.appendChild(this.output.nativeElement, line);
-    await this.typeText(text, line, speed);
+    await this.output.printLine(text, speed, className);
   }
 
   printHtml(html: string) {
-    const line = this.renderer.createElement('div');
-    line.innerHTML = html;
-    this.renderer.appendChild(this.output.nativeElement, line);
+    this.output.printHtml(html);
   }
 
   getPromptHtml(cmd = "") {
@@ -130,11 +98,10 @@ help      - Show this help message
   }
 
   async runBootSequence() {
-    // 1. ASCII Art
+    // ASCII Art
     await this.printLine(this.asciiArt, 5, 'ascii-art');
 
-    // 2. Show prompt first
-    // 2. Show prompt and type command
+    // Show prompt and type command
     this.inputLineDisplay = 'flex';
     this.cdr.detectChanges();
     this.commandInput.nativeElement.focus();
@@ -153,9 +120,8 @@ help      - Show this help message
     await new Promise(r => setTimeout(r, 500));
 
     // Execute command
-    // clear input first because handleCommand will echo it
     this.commandInput.nativeElement.value = '';
-    this.inputLineDisplay = 'none'; // Temporarily hide while processing like Enter key behavior
+    this.inputLineDisplay = 'none';
     this.cdr.detectChanges();
 
     await this.handleCommand(commandToType);
@@ -168,14 +134,26 @@ help      - Show this help message
   }
 
   async handleCommand(cmd: string) {
-    const command = cmd.trim().toLowerCase();
-
     // Create history line
     this.printHtml(this.getPromptHtml(cmd));
 
-    if (command === '') return;
+    if (cmd.trim() === '') return;
 
-    switch (command) {
+    // Check for '&' to execute multiple commands sequentially
+    if (cmd.includes('&')) {
+      const commands = cmd.split('&').map(c => c.trim()).filter(c => c !== '');
+      for (const singleCmd of commands) {
+        await this.executeCommand(singleCmd);
+      }
+    } else {
+      await this.executeCommand(cmd.trim());
+    }
+  }
+
+  private async executeCommand(command: string) {
+    const cmd = command.toLowerCase();
+
+    switch (cmd) {
       case 'help':
         await this.printLine(this.help, 5);
         break;
@@ -189,10 +167,10 @@ help      - Show this help message
         await this.printLine(this.projects, 5);
         break;
       case 'clear':
-        this.output.nativeElement.innerHTML = '';
+        this.output.clear();
         break;
       default:
-        await this.printLine(`Command not found: ${command}. Type 'help' for list.`, 10);
+        await this.printLine(`Command not found: ${cmd}. Type 'help' for list.`, 10);
     }
   }
 
@@ -201,10 +179,8 @@ help      - Show this help message
     const input = this.commandInput.nativeElement;
     const cursor = this.cursor.nativeElement;
 
-    // Get the text before cursor position
     const textBeforeCursor = input.value.substring(0, input.selectionStart);
 
-    // Create a temporary span to measure text width
     const span = document.createElement('span');
     span.style.font = window.getComputedStyle(input).font;
     span.style.visibility = 'hidden';
@@ -213,7 +189,6 @@ help      - Show this help message
     span.textContent = textBeforeCursor;
     document.body.appendChild(span);
 
-    // Calculate position
     const textWidth = span.offsetWidth;
     document.body.removeChild(span);
 
@@ -222,11 +197,37 @@ help      - Show this help message
   }
 
   async onKeyDown(e: KeyboardEvent) {
-    if (e.key === 'Enter') {
-      const input = this.commandInput.nativeElement;
+    const input = this.commandInput.nativeElement;
+
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (this.commandHistory.length > 0 && this.historyIndex < this.commandHistory.length - 1) {
+        this.historyIndex++;
+        input.value = this.commandHistory[this.commandHistory.length - 1 - this.historyIndex];
+        this.updateCursorPosition();
+      }
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (this.historyIndex > 0) {
+        this.historyIndex--;
+        input.value = this.commandHistory[this.commandHistory.length - 1 - this.historyIndex];
+        this.updateCursorPosition();
+      } else if (this.historyIndex === 0) {
+        this.historyIndex = -1;
+        input.value = '';
+        this.updateCursorPosition();
+      }
+    } else if (e.key === 'Enter') {
       const cmd = input.value;
       input.value = '';
-      this.inputLineDisplay = 'none'; // Hide input while processing
+
+      // Save to history (avoid duplicates and empty commands)
+      if (cmd.trim() && (this.commandHistory.length === 0 || this.commandHistory[this.commandHistory.length - 1] !== cmd)) {
+        this.commandHistory.push(cmd);
+      }
+      this.historyIndex = -1;
+
+      this.inputLineDisplay = 'none';
       await this.handleCommand(cmd);
       this.inputLineDisplay = 'flex';
       this.cdr.detectChanges();
