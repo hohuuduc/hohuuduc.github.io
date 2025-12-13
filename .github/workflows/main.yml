@@ -1,19 +1,23 @@
-name: Build and Deploy Angular
+name: Build Angular and Push to Branch
 
 on:
   workflow_dispatch:
 
 permissions:
-  pages: write
-  id-token: write
+  contents: write
 
 jobs:
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
@@ -27,20 +31,20 @@ jobs:
       - name: Build Angular app
         run: ./node_modules/.bin/ng build --configuration production --base-href "/${REPO_NAME}/"
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
+      - name: Checkout target branch
+        run: |
+          git checkout gh-pages || git checkout -b gh-pages
+          git rm -rf .
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist/portfolio/browser
+      - name: Copy build output
+        run: |
+          cp -r dist/portfolio/browser/* .
+          touch .nojekyll
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
-    steps:
-      - id: deploy
-        uses: actions/deploy-pages@v4
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add .
+          git commit -m "Deploy build $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes"
+          git push origin gh-pages
