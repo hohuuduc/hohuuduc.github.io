@@ -21,9 +21,6 @@ jobs:
 
       - run: npm ci
 
-      - name: Extract repo name
-        run: echo "REPO_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
-
       - name: Build Angular app
         run: ./node_modules/.bin/ng build --configuration production
 
