@@ -21,11 +21,8 @@ jobs:
 
       - run: npm ci
 
-      - name: Extract repo name
-        run: echo "REPO_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
-
       - name: Build Angular app
-        run: ./node_modules/.bin/ng build --configuration production --base-href "/${REPO_NAME}/"
+        run: ./node_modules/.bin/ng build --configuration production"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
