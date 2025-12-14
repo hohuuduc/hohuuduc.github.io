@@ -26,7 +26,7 @@ jobs:
       - run: npm ci
 
       - name: Build Angular app
-        run: ./node_modules/.bin/ng build --configuration production"
+        run: ./node_modules/.bin/ng build --configuration production
 
       - name: Checkout target branch
         run: |
