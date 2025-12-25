@@ -6,9 +6,12 @@ Fix bug:
 Thay đổi:
 - Thay button paste thành edit, cho phép edit nội dung orginal
 - Code đề xuất: không đề xuất toàn bộ source, chỉ đề xuất những đoạn bị cho là lỗi. Tại view hãy duplica code gốc và replace những dòng đề xuất.
-- 
+- Loại bỏ vùng header, button setting sẽ được đưa vào menu help Tools/Setting
+- Chỉnh sửa lại bố cục giao diện sao cho gọn gàng hơn.
   
 Chức năng bổ sung:
+- Thêm menu help Tools/Export data, khi nhấn nếu đang review thì thông báo chờ đến khi xử lý kết thúc, nếu không thì tiến hành export thông tin: code gốc, rule, system prompt, user prompt, thinking, respone; ra file.
+- Khi nhấn button review code 
 
 ### RULES TO ENFORCE:
 - [ERROR] Rule SEC_01: No hard-coded secrets or connection strings.
