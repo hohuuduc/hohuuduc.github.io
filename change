@@ -1,0 +1,24 @@
+Fix bug:
+- xóa event mouseup của overlay của setting dialog.
+- option suy luận vẫn chưa được lưu.
+- Tối ưu kích thước ứng dụng.
+
+Thay đổi:
+- Thay button paste thành edit, cho phép edit nội dung orginal
+- Code đề xuất: không đề xuất toàn bộ source, chỉ đề xuất những đoạn bị cho là lỗi. Tại view hãy duplica code gốc và replace những dòng đề xuất.
+- 
+  
+Chức năng bổ sung:
+
+### RULES TO ENFORCE:
+- [ERROR] Rule SEC_01: No hard-coded secrets or connection strings.
+- [ERROR] Rule EXC_01: No generic exception catching.
+- [ERROR] Rule MEM_01: Must use 'using' or Dispose for IDisposable.
+- [ERROR] Rule ASY_01: Async methods must end with 'Async' and return Task.
+- [ERROR] Rule LOG_01: Null check required before usage.
+- [WARNING] Rule COD_01: Avoid magic numbers; use constants.
+- [WARNING] Rule COD_02: Max 30 lines per method.
+- [WARNING] Rule NAM_01: PascalCase for public, camelCase for private.
+- [WARNING] Rule ARC_01: Use Dependency Injection over 'new'.
+- [WARNING] Rule DOC_01: XML comments for public APIs.
+### SOURCE CODE
