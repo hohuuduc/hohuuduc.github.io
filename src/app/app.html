@@ -5,8 +5,19 @@
     <span class="prompt-user">visitor</span><span class="prompt-at">@</span><span
       class="prompt-host">hohuuduc</span><span class="prompt-path">:~$</span>
     <input type="text" id="command-input" #commandInput autocomplete="off" spellcheck="false" autofocus
-      (keydown)="onKeyDown($event)" (input)="onInput()" (click)="onInput()" (keyup)="onInput()">
+      (keydown)="onKeyDown($event)" (input)="onInput()" (click)="onInput()"
+      (keyup)="updateCursorPosition(); cursor.classList.remove('cursor-solid')">
     <span class="cursor" #cursor>█</span>
+    @if (suggestions.length > 0) {
+    <div class="suggestion-dropdown" [style.left]="dropdownLeft">
+      @for (cmd of suggestions; track cmd; let i = $index) {
+      <div class="suggestion-item" [class.selected]="i === selectedSuggestionIndex"
+        (mousedown)="selectSuggestion($event, cmd)" (mouseenter)="selectedSuggestionIndex = i">
+        {{ cmd }}
+      </div>
+      }
+    </div>
+    }
   </div>
 </div>
 <app-social-bar />

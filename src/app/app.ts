@@ -32,6 +32,11 @@ export class AppComponent implements AfterViewInit {
   commandHistory: string[] = [];
   historyIndex = -1;
 
+  // Autocomplete
+  suggestions: string[] = [];
+  selectedSuggestionIndex = -1;
+  dropdownLeft = '0px';
+
   constructor(
     private cdr: ChangeDetectorRef,
     private commandRegistry: CommandRegistry
@@ -149,12 +154,78 @@ export class AppComponent implements AfterViewInit {
     document.body.removeChild(span);
 
     const promptWidth = input.offsetLeft;
-    cursor.style.left = (promptWidth + textWidth + 2) + 'px';
+    const cursorLeft = promptWidth + textWidth + 2;
+    cursor.style.left = cursorLeft + 'px';
+    this.dropdownLeft = cursorLeft + 'px';
+  }
+
+  updateSuggestions() {
+    const input = this.commandInput?.nativeElement;
+    if (!input) return;
+    const value = input.value;
+    if (!value) {
+      this.closeSuggestions();
+      return;
+    }
+    this.suggestions = this.commandRegistry.getSuggestions(value);
+    this.selectedSuggestionIndex = this.suggestions.length > 0 ? 0 : -1;
+  }
+
+  closeSuggestions() {
+    this.suggestions = [];
+    this.selectedSuggestionIndex = -1;
+  }
+
+  applySuggestion(name: string) {
+    const input = this.commandInput.nativeElement;
+    input.value = name;
+    this.closeSuggestions();
+    this.updateCursorPosition();
+  }
+
+  selectSuggestion(event: MouseEvent, name: string) {
+    event.preventDefault();
+    this.applySuggestion(name);
   }
 
   async onKeyDown(e: KeyboardEvent) {
     const input = this.commandInput.nativeElement;
 
+    // Pause blink while any key is held
+    this.cursor.nativeElement.classList.add('cursor-solid');
+
+    // Update cursor position in real-time for arrow left/right (fires continuously when held)
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      requestAnimationFrame(() => this.updateCursorPosition());
+    }
+
+    // Dropdown navigation
+    if (this.suggestions.length > 0) {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        this.selectedSuggestionIndex = (this.selectedSuggestionIndex + 1) % this.suggestions.length;
+        return;
+      }
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        this.selectedSuggestionIndex = this.selectedSuggestionIndex <= 0
+          ? this.suggestions.length - 1
+          : this.selectedSuggestionIndex - 1;
+        return;
+      }
+      if (e.key === 'Tab' || (e.key === 'Enter' && this.selectedSuggestionIndex >= 0)) {
+        e.preventDefault();
+        this.applySuggestion(this.suggestions[this.selectedSuggestionIndex]);
+        return;
+      }
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        this.closeSuggestions();
+        return;
+      }
+    }
+
+    // History navigation (only when no dropdown)
     if (e.key === 'ArrowUp') {
       e.preventDefault();
       if (this.commandHistory.length > 0 && this.historyIndex < this.commandHistory.length - 1) {
@@ -175,7 +246,9 @@ export class AppComponent implements AfterViewInit {
       }
     } else if (e.key === 'Enter') {
       const cmd = input.value;
+      if (!cmd.trim()) return;
       input.value = '';
+      this.closeSuggestions();
 
       // Save to history (avoid duplicates and empty commands)
       if (cmd.trim() && (this.commandHistory.length === 0 || this.commandHistory[this.commandHistory.length - 1] !== cmd)) {
@@ -189,13 +262,14 @@ export class AppComponent implements AfterViewInit {
       this.cdr.detectChanges();
       setTimeout(() => {
         input.focus();
-        this.terminal.nativeElement.scrollTo(0, document.body.scrollHeight);
+        this.terminal.nativeElement.scrollTo({ top: this.terminal.nativeElement.scrollHeight, behavior: 'smooth' });
         this.updateCursorPosition();
       });
     }
   }
 
   onInput() {
+    this.updateSuggestions();
     this.updateCursorPosition();
   }
 }

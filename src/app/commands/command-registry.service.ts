@@ -5,6 +5,7 @@ import { SkillsCommand } from './skills.command';
 import { ProjectsCommand } from './projects.command';
 import { ClearCommand } from './clear.command';
 import { HelpCommand } from './help.command';
+import { ChatCommand } from './chat.command';
 
 @Injectable({ providedIn: 'root' })
 export class CommandRegistry {
@@ -16,6 +17,7 @@ export class CommandRegistry {
         this.register(new ProjectsCommand());
         this.register(new ClearCommand());
         this.register(new HelpCommand(() => this.getAll()));
+        this.register(new ChatCommand());
     }
 
     register(command: TerminalCommand): void {
@@ -33,5 +35,12 @@ export class CommandRegistry {
 
     getAll(): TerminalCommand[] {
         return Array.from(this.commands.values());
+    }
+
+    getSuggestions(prefix: string): string[] {
+        if (!prefix) return [];
+        const lower = prefix.toLowerCase();
+        return Array.from(this.commands.keys())
+            .filter(name => name.startsWith(lower) && name !== lower);
     }
 }

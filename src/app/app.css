@@ -47,6 +47,37 @@
     position: relative;
 }
 
+.suggestion-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 180px;
+    background: rgba(30, 30, 30, 0.95);
+    border: 1px solid rgba(100, 100, 100, 0.4);
+    border-radius: 6px;
+    padding: 4px 0;
+    z-index: 200;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin-top: 4px;
+}
+
+.suggestion-item {
+    padding: 6px 14px;
+    color: var(--text-color);
+    font-family: var(--font-stack);
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.12s ease;
+    white-space: nowrap;
+}
+
+.suggestion-item.selected {
+    background: rgba(80, 180, 255, 0.2);
+    color: #7dd3fc;
+}
+
 .cursor {
     position: absolute;
     animation: blink 1s step-end infinite;
@@ -57,6 +88,11 @@
     height: 20px;
     left: 0;
     z-index: 100;
+}
+
+.cursor.cursor-solid {
+    animation: none;
+    opacity: 1;
 }
 
 @keyframes blink {
