@@ -2,6 +2,16 @@ import { Component, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef } fr
 import { CommonModule } from '@angular/common';
 import { OutputComponent } from './output/output';
 import { SocialBarComponent } from './social-bar/social-bar';
+import { CommandRegistry, CommandContext } from './commands';
+
+const ASCII_ART = String.raw`
+  _   _       _   _             ____             
+ | | | |     | | | |           |  _ \            
+ | |_| | ___ | |_| |_   _ _   _| | | \_   _  ___ 
+ |  _  |/ _ \|  _  | | | | | | | | | | | | |/ __|
+ | | | | (_) | | | | |_| | |_| | |_| | |_| | (__ 
+ |_| |_|\___/|_| |_|\__,_|\__,_|____/ \__,_|\___/
+`;
 
 @Component({
   selector: 'app-root',
@@ -22,55 +32,10 @@ export class AppComponent implements AfterViewInit {
   commandHistory: string[] = [];
   historyIndex = -1;
 
-  // Portfolio Data
-  bio = `NAME: Ho Huu Duc
-ROLE: Software Engineer
-EXP:  2 Years
-LOC:  Vietnam
-
-SUMMARY:
-Software Engineer specializing in .NET and NodeJS.
-Skilled in analyzing requirements, implementing user functionalities, and optimizing systems.`;
-
-  projects = `[DIR] PROJECTS
---------------
-1. PROCES.S (Fujinet System)
-   - ERP system for construction industry (.NET, Winform, SQL Server)
-   
-2. Lucky Draw (ALTA Software)
-   - API for lucky draw system (ASP.NET MVC, Entity Framework, JWT)
-
-3. ParcelWebApp (Personal)
-   - CLI for quick Parcel deployment
-
-4. Singleton DLL (Personal)
-   - Object management library`;
-
-  skills = `[SYS] SKILLS LOADED
--------------------
-LANGUAGES:  C#, JavaScript, TypeScript, SQL
-FRAMEWORKS: .NET, NodeJS, ASP.NET MVC
-DATABASES:  SQL Server, Oracle
-CONCEPTS:   OOP, SOLID, Design Patterns`;
-
-  help = `AVAILABLE COMMANDS:
--------------------
-about     - Display user information
-skills    - List technical skills
-projects  - List projects
-clear     - Clear terminal screen
-help      - Show this help message`;
-
-  asciiArt = String.raw`
-  _   _       _   _             ____             
- | | | |     | | | |           |  _ \            
- | |_| | ___ | |_| |_   _ _   _| | | \_   _  ___ 
- |  _  |/ _ \|  _  | | | | | | | | | | | | |/ __|
- | | | | (_) | | | | |_| | |_| | |_| | |_| | (__ 
- |_| |_|\___/|_| |_|\__,_|\__,_|____/ \__,_|\___|
-`;
-
-  constructor(private cdr: ChangeDetectorRef) { }
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private commandRegistry: CommandRegistry
+  ) { }
 
   ngAfterViewInit() {
     this.runBootSequence();
@@ -97,9 +62,18 @@ help      - Show this help message`;
       </div>`;
   }
 
+  private createCommandContext(): CommandContext {
+    return {
+      printLine: (text: string, speed?: number, className?: string) =>
+        this.output.printLine(text, speed ?? 30, className ?? 'command-output'),
+      printHtml: (html: string) => this.output.printHtml(html),
+      clear: () => this.output.clear(),
+    };
+  }
+
   async runBootSequence() {
     // ASCII Art
-    await this.printLine(this.asciiArt, 5, 'ascii-art');
+    await this.printLine(ASCII_ART, 5, 'ascii-art');
 
     // Show prompt and type command
     this.inputLineDisplay = 'flex';
@@ -152,26 +126,8 @@ help      - Show this help message`;
 
   private async executeCommand(command: string) {
     const cmd = command.toLowerCase();
-
-    switch (cmd) {
-      case 'help':
-        await this.printLine(this.help, 5);
-        break;
-      case 'about':
-        await this.printLine(this.bio, 5);
-        break;
-      case 'skills':
-        await this.printLine(this.skills, 5);
-        break;
-      case 'projects':
-        await this.printLine(this.projects, 5);
-        break;
-      case 'clear':
-        this.output.clear();
-        break;
-      default:
-        await this.printLine(`Command not found: ${cmd}. Type 'help' for list.`, 10);
-    }
+    const ctx = this.createCommandContext();
+    await this.commandRegistry.execute(cmd, ctx);
   }
 
   updateCursorPosition() {
