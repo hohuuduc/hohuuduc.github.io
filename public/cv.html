@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV | HoHuuDuc</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            color: #222;
+            margin: 0;
+        }
+
+        span,
+        p,
+        li,
+        td,
+        div {
+            font-family: 'Roboto', Arial, sans-serif;
+            line-height: 1.3;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            padding: 15px 0;
+            background-color: #9e9e9e;
+        }
+
+        .page {
+            width: 794px;
+            height: 1123px;
+            margin: 0 auto 15px auto;
+            background-color: #fff;
+            box-shadow: 1px 1px 3px 1px #333;
+        }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            body, html {
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                padding: 0;
+            }
+            .page {
+                position: relative;
+                box-shadow: none;
+                margin: 0 !important;
+                height: auto;
+                break-after: page;
+            }
+        }
+
+        .margin {
+            padding: 40px 65px;
+        }
+
+        .section {
+            width: 100%;
+            height: max-content;
+            margin-bottom: 8px;
+        }
+
+        .name {
+            font-size: 30px;
+            word-spacing: 13px;
+        }
+
+        .flex-box {
+            display: flex;
+        }
+
+        .col {
+            flex-direction: column;
+        }
+
+        .center {
+            justify-content: center;
+            align-items: center;
+        }
+
+        .inline-flex {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .profession {
+            font-size: 16px;
+            line-height: 1;
+            margin-top: 5px;
+        }
+
+        .infomation {
+            width: 85%;
+            justify-content: space-around;
+            margin-top: 5px;
+        }
+
+        .icon {
+            display: flex;
+            align-items: center;
+        }
+
+        .infomation .inline-flex:nth-child(1) .icon {
+            margin-right: 1px;
+        }
+
+        .infomation .inline-flex:nth-child(2) .icon {
+            margin-right: 3px;
+        }
+
+        .infomation .inline-flex:nth-child(3) .icon {
+            margin-right: -2px;
+        }
+
+        .infomation span:nth-child(2) {
+            font-size: 15px;
+            line-height: 1;
+        }
+
+        .section-name {
+            font-size: 19px;
+            line-height: 1;
+            border-width: 0;
+            border-bottom-width: 1px;
+            border-style: solid;
+            border-color: #000;
+            margin-bottom: 5px;
+        }
+
+        .section-body {
+            font-size: 16px;
+            margin-left: 15px;
+        }
+
+        .skill .section-body,
+        .activitie {
+            line-height: 1.4;
+        }
+
+        .highlight {
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .role::before {
+            content: "|";
+            padding: 0 3px;
+        }
+
+        .project-section>div {
+            margin-top: 3px;
+            margin-bottom: 15px;
+        }
+
+        .project-section>div:nth-last-child(1) {
+            margin-bottom: 0;
+        }
+
+        .project-section>div>* {
+            margin: 1px 0;
+        }
+
+        .general,
+        .education {
+            justify-content: space-between;
+            margin: 5px 0 3px;
+        }
+
+        .general~* {
+            margin: 1px 0 1px 15px;
+        }
+
+        .project-detail {
+            list-style-type: none;
+            padding-inline-start: 20px;
+        }
+
+        .project-detail li::before {
+            content: "•";
+            font-size: 12px;
+            margin-right: 4px;
+        }
+
+        .project-detail li {
+            margin-bottom: 2px;
+        }
+
+        .name {
+            font-family: 'Roboto', Arial, sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: .5px;
+            word-spacing: 4px;
+        }
+
+        .section-body>div {
+            margin-bottom: 2px;
+        }
+
+        .skill .section-body>div>span:first-child,
+        .project-name>span:first-child,
+        .project-description>span:first-child {
+            font-weight: 500;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="page">
+            <div class="margin">
+                <div class="section flex-box center col">
+                    <div class="name">
+                        <span>Ho Huu Duc</span>
+                    </div>
+                    <div class="profession">
+                        <span>(Software Engineer)</span>
+                    </div>
+                    <div class="infomation flex-box">
+                        <div class="inline-flex">
+                            <span class="icon">
+                                <img
+                                    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNXB4IiBoZWlnaHQ9IjE1cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTYuODU3MjgsMi40NDQ4OSBDNy45OTkyOCwzLjI3NzkwNDI5IDguODg5MTU3NTUsNC40MTU1MjA2MSA5LjY1MDAxNzYxLDUuNTAzMTY1MzYgTDEwLjA5MjAzNjQsNi4xNDY5MTkwNCBMMTAuMDkyMDM2NCw2LjE0NjkxOTA0IEwxMC41MDksNi43NjE2NiBMMTAuNTA5LDYuNzYxNjYgQzEwLjkzNzQsNy4zODgzNSAxMC44MzUxLDguMjQ0IDEwLjI1MzEsOC43NDc3MiBMOC4zMDE5OCwxMC4xOTY3IEM4LjEwODU5LDEwLjM0MDQgOC4wNDQyOSwxMC42MDE0IDguMTYwMjgsMTAuODEyNSBDOC42MDE3MywxMS42MTYxIDkuMzg4MTksMTIuODExOSAxMC4yODgyLDEzLjcxMTkgQzExLjE4OTEsMTQuNjEyOCAxMi40NDE0LDE1LjQ1IDEzLjMwMDIsMTUuOTQxMiBDMTMuNTIyOSwxNi4wNjg1IDEzLjgwMywxNS45OTQ4IDEzLjk0MzgsMTUuNzgwMyBMMTUuMjEzMSwxMy44NDY4IEMxNS42OTk5LDEzLjE5OTEgMTYuNjA4OCwxMy4wNTc2IDE3LjI2OTUsMTMuNTE0OSBMMTcuOTMzMjk4MiwxMy45NzM1OTE2IEMxOS4xNzE3NjQ1LDE0LjgzMzUyMDcgMjAuNTAzNzUzOCwxNS44MTA1NjE1IDIxLjUyMSwxNy4xMTMzIEMyMS44NjI2LDE3LjU1MDcgMjEuOTEzMywxOC4xMjI3IDIxLjcwOTYsMTguNTk4MSBDMjAuODcyOCwyMC41NTA3IDE4Ljc1NTIsMjIuMjEzNiAxNi41NTI0LDIyLjEzMjUgTDE2LjI1MTg3NTksMjIuMTE1ODAwMSBMMTYuMjUxODc1OSwyMi4xMTU4MDAxIEwxNi4wMTg5MjU2LDIyLjA5NTcwNjUgTDE2LjAxODkyNTYsMjIuMDk1NzA2NSBMMTUuNzYxMTMzNiwyMi4wNjY4MjQ0IEwxNS43NjExMzM2LDIyLjA2NjgyNDQgTDE1LjQ3OTU2MjEsMjIuMDI3NzY1MSBMMTUuNDc5NTYyMSwyMi4wMjc3NjUxIEwxNS4xNzUyNzMxLDIxLjk3NzE0IEMxNS4xMjI3MjQxLDIxLjk2NzY2MTUgMTUuMDY5MjcyOSwyMS45NTc2NDMyIDE1LjAxNDk0MTQsMjEuOTQ3MDU2MiBMMTQuNjc4NTY3NiwyMS44NzY0Nzg0IEMxNC42MjA4MDM5LDIxLjg2MzUwMDkgMTQuNTYyMjA0MywyMS44NDk4OTY4IDE0LjUwMjc5MDksMjEuODM1NjM3MiBMMTQuMTM2NzIyLDIxLjc0MTk4MjEgTDE0LjEzNjcyMiwyMS43NDE5ODIxIEwxMy43NTIxODM5LDIxLjYzMTIwNjMgTDEzLjc1MjE4MzksMjEuNjMxMjA2MyBMMTMuMzUwMjM4OCwyMS41MDE5MjEgQzExLjUwMzkxMzEsMjAuODc2NDA3OCA5LjE2MTEwOTM4LDE5LjY0NjQ4NzUgNi43NTczNSwxNy4yNDI3IEM0LjM1MzU2ODEzLDE0LjgzODkxMjUgMy4xMjM2NTM0NCwxMi40OTYxMDI4IDIuNDk4MTM4NzYsMTAuNjQ5Nzg2MSBMMi4zNjg4NTMwMSwxMC4yNDc4NDMzIEwyLjM2ODg1MzAxLDEwLjI0Nzg0MzMgTDIuMjU4MDc2NDgsOS44NjMzMDc5NSBMMi4yNTgwNzY0OCw5Ljg2MzMwNzk1IEwyLjE2NDQyMDQyLDkuNDk3MjQyMiBMMi4xNjQ0MjA0Miw5LjQ5NzI0MjIgTDIuMDg2NDk2MTEsOS4xNTA3MDgxMiBDMi4wNjI5ODg5OSw5LjAzODU3MDA0IDIuMDQxODcyMzcsOC45Mjk4NjQyNSAyLjAyMjkxNDgxLDguODI0NzY3NzYgTDEuOTcyMjg3NzgsOC41MjA0ODMyMSBMMS45NzIyODc3OCw4LjUyMDQ4MzIxIEwxLjkzMzIyNjMxLDguMjM4OTE2NTIgTDEuOTMzMjI2MzEsOC4yMzg5MTY1MiBMMS45MDQzNDE2NSw3Ljk4MTEyOTc4IEwxLjkwNDM0MTY1LDcuOTgxMTI5NzggTDEuODg0MjQ1MDcsNy43NDgxODUwNSBMMS44ODQyNDUwNyw3Ljc0ODE4NTA1IEwxLjg2NzU0LDcuNDQ3NjcgTDEuODY3NTQsNy40NDc2NyBDMS43ODY3NSw1LjI1MjIxIDMuNDY4NTUsMy4xMTkwMiA1LjQxMjE1LDIuMjg2MDUgQzUuODY4MjIsMi4wOTA1OSA2LjQyMDYsMi4xMjYzNiA2Ljg1NzI4LDIuNDQ0ODkgWiBNMTQuOTkxNzAwNSw2LjAzOTUyMzE1IEwxNS4xMDc3LDYuMDUzMTUgQzE1LjgzNTYsNi4xODE0OSAxNi41MDQyLDYuNTM2OTkiIGZpbGw9IiMwMDAiPjwvcGF0aD48L3N2Zz4=" />
+                            </span>
+                            <span>0337184209</span>
+                        </div>
+                        <div class="inline-flex">
+                            <span class="icon">
+                                <img
+                                    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNXB4IiBoZWlnaHQ9IjE1cHgiIHZpZXdCb3g9IjAgLTMuNSAzMiAzMiI+DQo8ZyBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+DQo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNDE0LjAwMDAwMCwgLTI2MC4wMDAwMDApIiBmaWxsPSIjMDAwMDAwIj4NCjxwYXRoDQpkPSJNNDMwLDI3NS45MTYgTDQyNi42ODQsMjczLjE2NyBMNDE1LjExNSwyODUuMDEgTDQ0NC41OTEsMjg1LjAxIEw0MzMuMjM1LDI3My4xNDcgTDQzMCwyNzUuOTE2IEw0MzAsMjc1LjkxNiBaIE00MzQuODksMjcxLjg5IEw0NDUuODkyLDI4My4zMjkgQzQ0NS45NTUsMjgzLjEwNyA0NDYsMjgyLjg3NyA0NDYsMjgyLjYzNCBMNDQ2LDI2Mi44NjIgTDQzNC44OSwyNzEuODkgTDQzNC44OSwyNzEuODkgWiBNNDE0LDI2Mi44MTYgTDQxNCwyODIuNjM0IEM0MTQsMjgyLjg3NyA0MTQuMDQ1LDI4My4xMDcgNDE0LjEwOCwyODMuMzI5IEw0MjUuMTQ3LDI3MS45MjcgTDQxNCwyNjIuODE2IEw0MTQsMjYyLjgxNiBaIE00NDUsMjYxIEw0MTUsMjYxIEw0MzAsMjczLjAxOSBMNDQ1LDI2MSBMNDQ1LDI2MSBaIj4NCjwvcGF0aD4NCjwvZz4NCjwvZz4NCjwvc3ZnPg==" />
+                            </span>
+                            <span class="text">hohuuduc2709@gmail.com</span>
+                        </div>
+                        <div class="inline-flex">
+                            <span class="icon">
+                                <img
+                                    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNnB4IiBoZWlnaHQ9IjE2cHgiIHZpZXdCb3g9IjAgMCAzMiAzMiI+DQo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLCAxLjUpIj4NCjxwYXRoDQpkPSJNMTAuNDA2IDEzLjQwNmwyLjUtMi41MzFjMC4yMTktMC4yMTkgMC40NjktMC41IDAuNzE5LTAuODEzIDAuMjUtMC4yODEgMC41MzEtMC41MzEgMC44MTMtMC43NSAwLjUzMS0wLjQ2OSAxLjE1Ni0wLjg3NSAxLjkzOC0wLjg3NSAwLjY4OCAwIDEuMjgxIDAuMzEzIDEuNzE5IDAuNzE5czAuNjg4IDEgMC42ODggMS42ODhjMCAwLjI4MS0wLjAzMSAwLjU5NC0wLjEyNSAwLjgxMy0wLjIxOSAwLjQzOC0wLjQwNiAwLjc1LTAuNTk0IDEtMC4wOTQgMC4xMjUtMC4xODggMC4yNS0wLjE4OCAwLjM3NSAwIDAuMDk0IDAgMC4xODggMC4wNjMgMC4yMTkgMC4zNDQgMC44NDQgMC41OTQgMS41NjMgMC43NSAyLjQzOCAwLjA5NCAwLjM0NCAwLjI4MSAwLjUgMC41OTQgMC41IDAuMTI1IDAgMC4yNS0wLjAzMSAwLjM3NS0wLjEyNSAwLjI1LTAuMTU2IDAuNDY5LTAuNDA2IDAuNjg4LTAuNjU2IDAuMTI1LTAuMTI1IDAuMjE5LTAuMjUgMC4yODEtMC4zMTMgMS4xMjUtMS4wOTQgMS43ODEtMi42NTYgMS43ODEtNC4yNSAwLTEuNjg4LTAuNjg4LTMuMTg4LTEuNzgxLTQuMjgxLTEuMDk0LTEuMDYzLTIuNjI1LTEuNzgxLTQuMjUtMS43ODFzLTMuMTg4IDAuNjU2LTQuMjgxIDEuODEzbC00LjI4MSA0LjI1Yy0xLjEyNSAxLjE1Ni0xLjc1IDIuNjU2LTEuNzUgNC4yNSAwIDAuNDY5IDAuMTg4IDEuNDM4IDAuNSAyLjM0NCAwLjMxMyAwLjg3NSAwLjcxOSAxLjY1NiAxLjI1IDEuNjU2IDAuMjgxIDAgMC44NzUtMC40NjkgMS4zNzUtMXMxLTEuMTI1IDEtMS4zNDRjMC0wLjE1Ni0wLjEyNS0wLjM0NC0wLjI1LTAuNjI1LTAuMTU2LTAuMjgxLTAuMjE5LTAuNjI1LTAuMjE5LTEuMDMxIDAtMC42MjUgMC4yNS0xLjI1IDAuNjg4LTEuNjg4ek0xMC4zMTMgMjUuNDA2bDQuMjgxLTQuMjVjMS4xMjUtMS4wOTQgMS43NS0yLjY4OCAxLjc1LTQuMjgxIDAtMC40NjktMC4xODgtMS40MDYtMC41LTIuMzEzLTAuMjgxLTAuODc1LTAuNzE5LTEuNjg4LTEuMjUtMS42ODgtMC4yMTkgMC0wLjg3NSAwLjUtMS4zNDQgMS4wMzEtMC41MzEgMC41MzEtMS4wMzEgMS4wOTQtMS4wMzEgMS4zMTMgMCAwLjE1NiAwLjA5NCAwLjQwNiAwLjI1IDAuNjU2IDAuMTU2IDAuMjgxIDAuMjgxIDAuNTk0IDAuMjgxIDEtMC4wMzEgMC42MjUtMC4yODEgMS4yNS0wLjcxOSAxLjc1bC0yLjUzMSAyLjVjLTAuMjE5IDAuMjUtMC40NjkgMC41LTAuNzE5IDAuNzgxbC0wLjc4MSAwLjc4MWMtMC41MzEgMC41LTEuMTg4IDAuODQ0LTEuOTY5IDAuODQ0LTEuMzEzIDAtMi4zNzUtMS4wMzEtMi4zNzUtMi4zNzUgMC0wLjMxMyAwLjA2My0wLjU5NCAwLjE1Ni0wLjgxMyAwLjE4OC0wLjQzOCAwLjM3NS0wLjc1IDAuNTk0LTEgMC4wOTQtMC4xMjUgMC4xMjUtMC4yNSAwLjEyNS0wLjM0NCAwLTAuMDYzLTAuMDMxLTAuMTI1LTAuMDYzLTAuMjUtMC4zNzUtMC44NDQtMC41OTQtMS41NjMtMC43NS0yLjQzOC0wLjA2My0wLjE1Ni0wLjA5NC0wLjI4MS0wLjE4OC0wLjM0NC0wLjA5NC0wLjEyNS0wLjI1LTAuMTU2LTAuNDA2LTAuMTU2LTAuMTI1IDAtMC4yMTkgMC4wMzEtMC4zNDQgMC4xMjUtMC4yNSAwLjE1Ni0wLjUgMC40MDYtMC43MTkgMC42NTYtMC4wOTQgMC4xMjUtMC4yMTkgMC4yMTktMC4yODEgMC4yODEtMS4xMjUgMS4xMjUtMS43ODEgMi42ODgtMS43ODEgNC4yODEgMCAxLjY1NiAwLjY1NiAzLjE4OCAxLjc4MSA0LjI4MSAxLjA5NCAxLjA5NCAyLjU5NCAxLjc1IDQuMjUgMS43NSAxLjYyNSAwIDMuMTg4LTAuNjI1IDQuMjgxLTEuNzgxeiI+PC9wYXRoPg0KPC9nPg0KPC9zdmc+" />
+                            </span>
+                            <span>linkedin.com/in/hohuuduc2709</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="section flex-box col summary">
+                    <div class="section-name">
+                        Summary
+                    </div>
+                    <div class="section-body">
+                        <span>I'm a Software Engineer with 3 years of experience in system development and
+                            maintenance.</span>
+                        <span>Strong skills in analyzing requirements, developing features, and improving system
+                            performance.</span>
+                        <span>Looking for a position where I can apply my skills, learn new technologies, and contribute
+                            to team success.</span>
+                    </div>
+                </div>
+                <div class="section flex-box col skill">
+                    <div class="section-name">
+                        Skills
+                    </div>
+                    <div class="section-body">
+                        <div>
+                            <span>Framework/Platform: </span><span>.NET (Primary), NodeJS</span>
+                        </div>
+                        <div>
+                            <span>Database Management System: </span><span>SQL Server (Primary), Oracle</span>
+                        </div>
+                        <div>
+                            <span>AI & Developer Productivity: </span><span>Code Generation, Skill Creation, Harness
+                                Development, Workflow Automation</span>
+                        </div>
+                        <div>
+                            <span>Tools: </span><span>Git (Primary), SVN, Microsoft TFS.</span>
+                        </div>
+                        <div>
+                            <span>Others: </span>
+                            <span>Object-Oriented Programming, SOLID Principles, Common Design Patterns, Software
+                                Architecture</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="section flex-box col ">
+                    <div class="section-name">
+                        Work Experience
+                    </div>
+                    <div class="section-body project-section">
+                        <div>
+                            <div class="general flex-box">
+                                <div class="flex-box">
+                                    <div class="company highlight">Fujinet System</div>
+                                    <div class="role">Software Engineer</div>
+                                </div>
+                                <div>
+                                    <div class="timeline">Mar 2023 - Now</div>
+                                </div>
+                            </div>
+                            <div class="project-name">
+                                <span>Project: </span><span>PROCES.S</span>
+                            </div>
+                            <div class="project-description">
+                                <span>Description: </span>
+                                <span>Developing an ERP system for the construction industry on the .NET
+                                    platform.</span>
+                            </div>
+                            <ul class="project-detail">
+                                <li>Analyze requirements, develop and optimize products for end users.</li>
+                                <li>Create detailed design documents for customized features.</li>
+                                <li>Develop applications integrated with SQL Server through REST APIs.</li>
+                                <li>Maintain applications and optimize performance.</li>
+                            </ul>
+                            <div class="project-description">
+                                <span>Responsibilities: </span>
+                            </div>
+                            <ul class="project-detail">
+                                <li>Understand business processes and ensure compliance with established standards,
+                                    guidelines, and regulations.</li>
+                                <li>Identify, analyze, and report issues during development, and propose effective
+                                    solutions for continuous improvement.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="general flex-box">
+                                <div class="flex-box">
+                                    <div class="company highlight">ALTA Software</div>
+                                    <div class="role">Intern Back-end ASP.NET</div>
+                                </div>
+                                <div>
+                                    <div class="timeline">Jun 2022 - Sep 2022</div>
+                                </div>
+                            </div>
+                            <div class="project-name">
+                                <span>Project: </span><span>Lucky Draw</span>
+                            </div>
+                            <div class="project-description">
+                                <span>Description: </span>
+                                <span>Designing and developing APIs with an existing template.</span>
+                            </div>
+                            <ul class="project-detail">
+                                <li>Using ASP.NET MVC, design system following RESTful API standar.</li>
+                                <li>Code First approach, defining table structures and relationships using Entity
+                                    Framework.
+                                    Database schemas are deployed and managed through the migrations tool.</li>
+                                <li>Authentication and authorization with JWT token, securing passwords using SHA-256
+                                    hashing.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="section-name">
+                        Education
+                    </div>
+                    <div class="section-body">
+                        <div class="flex-box education">
+                            <div class="flex-box">
+                                <div class="highlight">Nguyen Tat Thanh University</div>
+                            </div>
+                            <div>
+                                <div class="timeline">Mar 2023 - Now</div>
+                            </div>
+                        </div>
+                        <div class="project-name">
+                            <span>Bachelor of Science: Software Engineer 7.54</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page">
+            <div class="margin">
+                <div class="section">
+                    <div class="section-name">
+                        Hobbies and Activities
+                    </div>
+                    <div class="section-body">
+                        <div class="activitie">Participating in offline sessions for in-depth technical discussions.
+                        </div>
+                        <div class="activitie">Developing personal projects such as: a CLI for quick Parcel deployment
+                            (ParcelWebApp) and
+                            a DLL for object management using the Singleton design pattern (Singleton). Refer to
+                            github.com/27hohuuduc.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
